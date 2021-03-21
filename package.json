@@ -1,0 +1,26 @@
+{
+  "name": "ree",
+  "version": "1.0.0",
+  "description": "",
+  "main": "build/index.js",
+  "scripts": {
+    "start": "node .",
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "buildandrun": "tsc && node ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^14.14.35",
+    "dogehouse-js": "../dogehouse-js",
+    "dotenv": "^8.2.0",
+    "lowdb": "^1.0.0",
+    "say": "^0.16.0",
+    "typescript": "^4.2.3"
+  },
+  "devDependencies": {
+    "@types/lowdb": "^1.0.9"
+  }
+}
