@@ -21,10 +21,13 @@ const main = async () => {
     const rooms = await wrapper.getTopPublicRooms();
     let theRoom = rooms[0];
 
-    for (let i = 0; i < rooms.length; i++) {
+    /* for (let i = 0; i < rooms.length; i++) {
       theRoom = rooms[i];
       if (theRoom.name.startsWith("DogeHouse")) await botTheRoom(wrapper, theRoom);
-    }
+    } */
+    
+    await botTheRoom(wrapper, theRoom);
+    
   } catch (e) {
     if (e.code === 4001) console.error("invalid token!");
   }
