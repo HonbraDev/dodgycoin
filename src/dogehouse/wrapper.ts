@@ -16,9 +16,12 @@ import {
   JoinRoomAndGetInfoResponse,
 } from "./responses";
 
+type Handler<Data> = (data: Data) => void;
+
 export const wrap = (connection: Connection): Wrapper => ({
+  connection,
   subscribe: {
-    newChatMsg: (handler: { userId: UUID; msg: Message }) =>
+    newChatMsg: (handler: Handler<{ userId: UUID; msg: Message }>) =>
       connection.addListener("new_chat_msg", handler),
   },
   query: {

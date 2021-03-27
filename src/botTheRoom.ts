@@ -15,28 +15,31 @@ import {
 } from "./commands";
 import { startMessageQueue, addMessageToQueue } from "./queue";
 
-const botTheRoom = async (wrapper: Wrapper, theRoom: Room): Promise<void> => {
-  console.log(
-    `=> joining room "${theRoom.name}" (${theRoom.numPeopleInside} people)`
-  );
-  await wrapper.mutation.joinRoomAndGetInfo(theRoom.id);
+const botTheRoom = async (wrapper: Wrapper): Promise<void> => {
+  const rooms = await wrapper.query.getTopPublicRooms();
+  let theRoom = rooms.rooms[0].id;
 
-  startMessageQueue({ wrapper, theRoom });
+  if (process.argv[3]) theRoom = process.argv[3];
+
+  console.log(`Joining ${theRoom}.`);
+  await wrapper.mutation.joinRoomAndGetInfo(theRoom);
+  console.log(`Joined ${theRoom}.`);
+
+  startMessageQueue({ wrapper });
 
   addMessageToQueue([
     {
       t: "text",
       v:
-        "Hello, I am DodgyCoin, your personal banker. My creator got yeeted so he has to use an alt. Try doing $help.",
+        "Hello, I am DodgyCoin, your personal banker. I no longer brick rooms. Try doing $help.",
     },
   ]);
 
   wrapper.subscribe.newChatMsg(({ userId, msg }) => {
     const text = msg.tokens.map((token) => token.v).join(" ");
     console.log(`${msg.displayName}: ${text}`);
-    const commandInput: CommandInput = { wrapper, theRoom, msg, userId };
-    if ([/* "bbcd9b89-dd64-49f7-8612-49a333b6249b" */ ""].includes(userId))
-      return;
+    const commandInput: CommandInput = { wrapper, msg, userId };
+    if (["bbcd9b89-dd64-49f7-8612-49a333b6249b"].includes(userId)) return;
 
     if (msg.tokens[0].v === "$help") help(commandInput);
     if (msg.tokens[0].v === "$jam") jam(commandInput);

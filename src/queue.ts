@@ -1,4 +1,4 @@
-import { MessageToken, Wrapper, Room } from "./dogehouse/index";
+import { MessageToken, Wrapper, Room, wrap } from "./dogehouse/index";
 import getUserFromID from "./getUserFromID";
 
 type queueMessage = {
@@ -6,31 +6,42 @@ type queueMessage = {
   whisperedTo?: string;
 };
 
-let messageQueue: queueMessage[] = [];
+let messageQueue: queueMessage[] = [],
+  // @ts-expect-error
+  wrapper: Wrapper = null;
 
 export async function addMessageToQueue(
   msg: MessageToken[],
   mention?: { userId: string; wrapper: Wrapper }
 ) {
-  mention
-    ? messageQueue.push({
-        tokens: msg,
-        whisperedTo: (await getUserFromID(mention.userId, mention.wrapper))
-          .id as string,
-      })
-    : messageQueue.push({ tokens: msg });
+  if (messageQueue.length > 0) {
+    mention
+      ? messageQueue.push({
+          tokens: msg,
+          whisperedTo: mention.userId,
+        })
+      : messageQueue.push({ tokens: msg });
+  } else {
+    wrapper.mutation.sendRoomChatMsg(
+      [
+        messageQueue.length >= 5
+          ? { t: "text", v: `[1 / ${messageQueue.length}]` }
+          : { t: "text", v: "" },
+        ...msg,
+      ],
+      mention?.userId ? [mention.userId] : []
+    );
+  }
 }
 
-export function startMessageQueue(input: {
-  wrapper: Wrapper;
-  theRoom: Room;
-}): void {
+export function startMessageQueue(input: { wrapper: Wrapper }): void {
+  wrapper = input.wrapper;
   setInterval(() => {
     onInterval(input);
   }, 1100);
 }
 
-function onInterval({ wrapper }: { wrapper: Wrapper; theRoom: Room }) {
+function onInterval({ wrapper }: { wrapper: Wrapper }) {
   const currentMessage = messageQueue.shift();
   if (currentMessage)
     wrapper.mutation.sendRoomChatMsg(

@@ -1,4 +1,4 @@
 while :
 do
-	yarn run start
+	node . 1
 done

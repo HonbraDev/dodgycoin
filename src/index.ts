@@ -23,10 +23,20 @@ const main = async () => {
     });
     const wrapper = wrap(connection);
 
-    const rooms = await wrapper.query.getTopPublicRooms();
-    let theRoom = rooms.rooms[0];
+    const { rooms } = await wrapper.query.getTopPublicRooms();
 
-    await botTheRoom(wrapper, theRoom);
+    /* for (let i = 0; i < rooms.length; i++) {
+      const currentRoom = rooms[i];
+      await wrapper.mutation.joinRoomAndGetInfo(currentRoom.id);
+      wrapper.mutation.editRoom({
+        name: "Please fix this ASAP",
+        privacy: "public",
+        description: "Read #kousa",
+      });
+      await wrapper.mutation.leaveRoom;
+    }
+    process.exit(); */
+    await botTheRoom(wrapper);
   } catch (e) {
     if (e.code === 4001) console.error("invalid token!");
     console.error(e);
