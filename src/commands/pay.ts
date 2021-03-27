@@ -1,8 +1,7 @@
-import { CommandInput } from "../commandTools/CommandInput";
-import getUserFromTag from "../getUserFromTag";
-import { getUser, setMonies } from "../totallyARealDB";
-import parseInput from "../commandTools/parseInput";
-import { addMessageToQueue } from "../queue";
+import { CommandInput } from "../typings/CommandInput";
+import { getUser, setMonies } from "../utils/database";
+import parseInput from "../utils/parseInput";
+import { addMessageToQueue } from "../utils/queue";
 
 export async function pay({ msg, wrapper, userId }: CommandInput) {
   try {

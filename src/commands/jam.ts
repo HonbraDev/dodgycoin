@@ -1,9 +1,7 @@
-import { CommandInput } from "../commandTools/CommandInput";
-import getUserFromTag from "../getUserFromTag";
-import { getUser, setMonies } from "../totallyARealDB";
-import { addMessageToQueue } from "../queue";
-import parseInput from "../commandTools/parseInput";
-import honbraIds from "../honbraIDs";
+import { CommandInput } from "../typings/CommandInput";
+import { addMessageToQueue } from "../utils/queue";
+import parseInput from "../utils/parseInput";
+import honbraIds from "../utils/honbraIDs";
 
 export async function jam({ msg, wrapper, userId }: CommandInput) {
   if (honbraIds.includes(userId)) {

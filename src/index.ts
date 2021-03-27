@@ -1,42 +1,42 @@
 require("dotenv").config();
 
-import { raw, wrap } from "./dogehouse/index";
-const { connect } = raw;
-import botTheRoom from "./botTheRoom";
-import { readFile } from "fs/promises";
+import { init } from "./utils/dogehouse";
+import { startMessageQueue, addMessageToQueue } from "./utils/queue";
+import addDodgeForActivity from "./utils/addDodgeForActivity";
+import chatHandler from "./utils/chatHandler";
 
 const main = async () => {
   try {
-    let configPath = "./configs/1.json";
-    if (process.argv[2]) configPath = `./configs/${process.argv[2]}.json`;
-    const {
-      token,
-      refreshToken,
-    }: { token: string; refreshToken: string } = JSON.parse(
-      await readFile(configPath, "utf-8")
+    const wrapper = await init();
+
+    const rooms = await wrapper.query.getTopPublicRooms();
+    let theRoom = rooms.rooms[0].id;
+    if (process.argv[3]) theRoom = process.argv[3];
+
+    console.log(`Joining ${theRoom}.`);
+    const roomInfo = await wrapper.mutation.joinRoomAndGetInfo(theRoom);
+    if ("error" in roomInfo) throw roomInfo.error;
+    console.log(
+      `Joined ${roomInfo.room.name}. There ${
+        roomInfo.room.numPeopleInside > 1 ? "are" : "is"
+      } ${roomInfo.room.numPeopleInside} participant${
+        roomInfo.room.numPeopleInside > 1 ? "s" : ""
+      }.`
     );
-    const connection = await connect(token, refreshToken, {
-      onConnectionTaken: () => {
-        console.error("\nAnother client has taken the connection");
-        process.exit();
+
+    startMessageQueue();
+
+    addMessageToQueue([
+      {
+        t: "text",
+        v:
+          "Hello, I am DodgyCoin, your personal banker. I no longer brick rooms. Try doing $help.",
       },
-    });
-    const wrapper = wrap(connection);
+    ]);
 
-    const { rooms } = await wrapper.query.getTopPublicRooms();
+    wrapper.subscribe.newChatMsg(chatHandler);
 
-    /* for (let i = 0; i < rooms.length; i++) {
-      const currentRoom = rooms[i];
-      await wrapper.mutation.joinRoomAndGetInfo(currentRoom.id);
-      wrapper.mutation.editRoom({
-        name: "Please fix this ASAP",
-        privacy: "public",
-        description: "Read #kousa",
-      });
-      await wrapper.mutation.leaveRoom;
-    }
-    process.exit(); */
-    await botTheRoom(wrapper);
+    setInterval(addDodgeForActivity, 60000);
   } catch (e) {
     if (e.code === 4001) console.error("invalid token!");
     console.error(e);

@@ -1,16 +1,15 @@
-import { CommandInput } from "../commandTools/CommandInput";
-import getUserFromTag from "../getUserFromTag";
-import { setMonies } from "../totallyARealDB";
-import { addMessageToQueue } from "../queue";
-import honbraIds from "../honbraIDs";
+import { CommandInput } from "../typings/CommandInput";
+import { setMonies } from "../utils/database";
+import { addMessageToQueue } from "../utils/queue";
+import honbraIds from "../utils/honbraIDs";
 
 export async function setdodge({ wrapper, msg, userId }: CommandInput) {
   if (honbraIds.includes(userId)) {
     const username = msg.tokens[1].v;
     const monies = parseInt(msg.tokens[2].v as string, 10);
     if (typeof username === "string" && typeof monies === "number") {
-      const theUser = await getUserFromTag(username, wrapper);
-      if (typeof theUser !== "undefined") {
+      const theUser = await wrapper.query.getUserProfile(username);
+      if (theUser) {
         const id = theUser.id;
         if (id) {
           await setMonies(id, monies);

@@ -1,5 +1,5 @@
-import { CommandInput } from "../commandTools/CommandInput";
-import honbraIds from "../honbraIDs";
+import { CommandInput } from "../typings/CommandInput";
+import honbraIds from "../utils/honbraIDs";
 
 export async function reboot({ wrapper, userId }: CommandInput) {
   if (honbraIds.includes(userId)) {

@@ -1,6 +1,6 @@
-import { CommandInput } from "../commandTools/CommandInput";
-import { addMessageToQueue } from "../queue";
-import honbraIds from "../honbraIDs";
+import { CommandInput } from "../typings/CommandInput";
+import { addMessageToQueue } from "../utils/queue";
+import honbraIds from "../utils/honbraIDs";
 
 export async function brickchat({ wrapper, userId }: CommandInput) {
   try {

@@ -1,9 +1,8 @@
-import { CommandInput } from "../commandTools/CommandInput";
-import getUserFromTag from "../getUserFromTag";
-import { getUser, setMonies } from "../totallyARealDB";
-import parseInput from "../commandTools/parseInput";
-import { addMessageToQueue } from "../queue";
-import honbraIds from "../honbraIDs";
+import { CommandInput } from "../typings/CommandInput";
+import { getUser, setMonies } from "../utils/database";
+import parseInput from "../utils/parseInput";
+import { addMessageToQueue } from "../utils/queue";
+import honbraIds from "../utils/honbraIDs";
 
 export async function steal({ msg, wrapper, userId }: CommandInput) {
   try {

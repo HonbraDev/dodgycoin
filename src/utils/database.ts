@@ -1,7 +1,7 @@
-import { User } from "./realDBTypings";
+import { User } from "../typings/Database";
 import * as admin from "firebase-admin";
 
-const serviceAccount = require("../firebaseadmin.json");
+const serviceAccount = require("../../firebaseadmin.json");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),

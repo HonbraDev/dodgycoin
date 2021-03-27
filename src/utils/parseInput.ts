@@ -1,11 +1,10 @@
 import { MessageToken, Wrapper } from "../dogehouse/index";
-import getUserFromTag from "../getUserFromTag";
 
-export default async function parseInput(
+const parseInput = async (
   types: InputTypes[],
   tokens: MessageToken[],
   wrapper: Wrapper
-) {
+) => {
   let output: (string | number)[] = [];
   tokens.shift();
   for (let i = 0; i < types.length; i++) {
@@ -24,7 +23,9 @@ export default async function parseInput(
           continue;
         }
         case "user": {
-          const potentialUser = await getUserFromTag(currentToken, wrapper);
+          const potentialUser = await wrapper.query.getUserProfile(
+            currentToken
+          );
           if (!potentialUser) throw "Invalid user in command.";
           output.push(potentialUser.id);
           continue;
@@ -33,6 +34,8 @@ export default async function parseInput(
     } else throw "Missing argument in command.";
   }
   return output;
-}
+};
 
 type InputTypes = "string" | "number" | "user";
+
+export default parseInput;

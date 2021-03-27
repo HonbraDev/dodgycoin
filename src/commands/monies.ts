@@ -1,14 +1,13 @@
-import { CommandInput } from "../commandTools/CommandInput";
-import getUserFromTag from "../getUserFromTag";
-import { getUser } from "../totallyARealDB";
-import { addMessageToQueue } from "../queue";
+import { CommandInput } from "../typings/CommandInput";
+import { getUser } from "../utils/database";
+import { addMessageToQueue } from "../utils/queue";
 
 export async function monies({ wrapper, msg, userId }: CommandInput) {
   if (msg.tokens[1]) {
     const username = msg.tokens[1].v;
     if (typeof username === "string") {
-      const user = await getUserFromTag(username, wrapper);
-      if (typeof user !== "undefined") {
+      const user = await wrapper.query.getUserProfile(username);
+      if (user) {
         const economyUser = await getUser(user.id);
         addMessageToQueue(
           [

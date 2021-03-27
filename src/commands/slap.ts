@@ -1,6 +1,6 @@
-import { CommandInput } from "../commandTools/CommandInput";
-import parseInput from "../commandTools/parseInput";
-import { addMessageToQueue } from "../queue";
+import { CommandInput } from "../typings/CommandInput";
+import parseInput from "../utils/parseInput";
+import { addMessageToQueue } from "../utils/queue";
 
 export async function slap({ msg, wrapper, userId }: CommandInput) {
   try {
