@@ -5,3 +5,4 @@ firebaseadmin.json
 db.json
 *.env
 configs/
+*.log
