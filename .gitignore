@@ -4,3 +4,4 @@ build/
 firebaseadmin.json
 db.json
 *.env
+configs/

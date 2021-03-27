@@ -2,7 +2,6 @@ import { CommandInput } from "../commandTools/CommandInput";
 import parseInput from "../commandTools/parseInput";
 import { addMessageToQueue } from "../queue";
 import { getUser, setMonies } from "../totallyARealDB";
-import getUserFromTag from "../getUserFromTag";
 
 export async function coinflip({ msg, userId, wrapper }: CommandInput) {
   try {
