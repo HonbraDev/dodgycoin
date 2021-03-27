@@ -11,7 +11,7 @@ import {
   reboot,
   total,
   slap,
-  steal
+  steal,
 } from "./commands";
 import { startMessageQueue, addMessageToQueue } from "./queue";
 
@@ -56,10 +56,10 @@ const botTheRoom = async (wrapper: Wrapper, theRoom: Room): Promise<void> => {
     const users = await (await wrapper.getRoomUsers()).users.map(
       (user) => user.id
     );
-    users.forEach((id) => {
-      const user = getUser(id);
-      setMonies(id, user.monies + 1);
-    });
+    for (let i = 0; i < users.length; i++) {
+      const user = await getUser(users[i]);
+      await setMonies(users[i], user.monies + 1);
+    }
     console.log("Done incrementing");
   };
 
