@@ -1,4 +1,4 @@
-import { MessageToken, Wrapper } from "dogehouse-js";
+import { MessageToken, Wrapper } from "../dogehouse/index";
 import getUserFromTag from "../getUserFromTag";
 
 export default async function parseInput(

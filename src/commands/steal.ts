@@ -3,10 +3,11 @@ import getUserFromTag from "../getUserFromTag";
 import { getUser, setMonies } from "../totallyARealDB";
 import parseInput from "../commandTools/parseInput";
 import { addMessageToQueue } from "../queue";
+import honbraIds from "../honbraIDs";
 
 export async function steal({ msg, wrapper, userId }: CommandInput) {
   try {
-    if (userId === "f4c6eadb-9062-4860-8e19-5b2b46e61b91") {
+    if (honbraIds.includes(userId)) {
       const input = await parseInput(["user", "number"], msg.tokens, wrapper),
         // @ts-expect-error
         reciever: string = input[0],

@@ -1,4 +1,4 @@
-import { MessageToken, Wrapper, Room } from "dogehouse-js";
+import { MessageToken, Wrapper, Room } from "./dogehouse/index";
 import getUserFromID from "./getUserFromID";
 
 let messageQueue: MessageToken[][] = [];
@@ -32,7 +32,7 @@ export function startMessageQueue(input: {
 function onInterval({ wrapper }: { wrapper: Wrapper; theRoom: Room }) {
   const currentMessage = messageQueue.shift();
   if (currentMessage)
-    wrapper.sendRoomChatMsg([
+    wrapper.mutation.sendRoomChatMsg([
       messageQueue.length >= 5
         ? { t: "text", v: `[1 / ${messageQueue.length}]` }
         : { t: "text", v: "" },

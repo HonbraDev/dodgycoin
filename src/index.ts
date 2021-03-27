@@ -1,6 +1,6 @@
 require("dotenv").config();
 
-import { raw, wrap } from "dogehouse-js";
+import { raw, wrap } from "./dogehouse/index";
 const { connect } = raw;
 import botTheRoom from "./botTheRoom";
 
@@ -18,8 +18,8 @@ const main = async () => {
     );
     const wrapper = wrap(connection);
 
-    const rooms = await wrapper.getTopPublicRooms();
-    let theRoom = rooms[0];
+    const rooms = await wrapper.query.getTopPublicRooms();
+    let theRoom = rooms.rooms[0];
 
     await botTheRoom(wrapper, theRoom);
   } catch (e) {

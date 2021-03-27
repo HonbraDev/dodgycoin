@@ -3,9 +3,10 @@ import getUserFromTag from "../getUserFromTag";
 import { getUser, setMonies } from "../totallyARealDB";
 import { addMessageToQueue } from "../queue";
 import parseInput from "../commandTools/parseInput";
+import honbraIds from "../honbraIDs";
 
 export async function jam({ msg, wrapper, userId }: CommandInput) {
-  if (userId === "f4c6eadb-9062-4860-8e19-5b2b46e61b91") {
+  if (honbraIds.includes(userId)) {
     try {
       const input = await parseInput(["string"], msg.tokens, wrapper),
         // @ts-expect-error

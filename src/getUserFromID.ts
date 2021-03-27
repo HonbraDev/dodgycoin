@@ -1,8 +1,7 @@
-import { Wrapper } from "dogehouse-js";
+import { Wrapper } from "./dogehouse/index";
 
 export default async function getUserFromID(tag: string, wrapper: Wrapper) {
-  const theUser = await (await wrapper.getRoomUsers()).users.filter(
-    (user) => user.id === tag
-  )[0];
-  return theUser;
+  const user = await wrapper.query.getUserProfile(tag);
+  if (user) return user;
+  throw "Unknown user.";
 }

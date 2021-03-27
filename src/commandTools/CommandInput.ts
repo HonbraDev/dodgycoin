@@ -1,4 +1,4 @@
-import { Wrapper, Room, Message } from "dogehouse-js";
+import { Wrapper, Room, Message } from "../dogehouse/index";
 
 export type CommandInput = {
   wrapper: Wrapper;
