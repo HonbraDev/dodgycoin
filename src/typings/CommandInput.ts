@@ -1,4 +1,4 @@
-import { Wrapper, Message } from "../dogehouse/index";
+import { Wrapper, Message } from "@dogehouse/kebab";
 
 export type CommandInput = {
   wrapper: Wrapper;

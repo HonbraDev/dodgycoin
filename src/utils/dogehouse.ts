@@ -1,4 +1,4 @@
-import { raw, wrap, Wrapper } from "../dogehouse/index";
+import { raw, wrap, Wrapper } from "@dogehouse/kebab";
 import { readFile } from "fs/promises";
 const { connect } = raw;
 

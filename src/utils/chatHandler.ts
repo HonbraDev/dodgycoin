@@ -1,5 +1,5 @@
 import { CommandInput } from "../typings/CommandInput";
-import { Message, UUID } from "../dogehouse/index";
+import { Message, UUID } from "@dogehouse/kebab";
 import { wrapper } from "./dogehouse";
 import {
   coinflip,

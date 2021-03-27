@@ -1,4 +1,4 @@
-import { MessageToken, Wrapper, Room, wrap } from "../dogehouse/index";
+import { MessageToken, Wrapper, Room, wrap } from "@dogehouse/kebab";
 import { wrapper } from "./dogehouse";
 
 type queueMessage = {
