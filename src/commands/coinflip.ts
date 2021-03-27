@@ -9,14 +9,14 @@ export async function coinflip({ msg, userId, wrapper }: CommandInput) {
     const input = await parseInput(["number"], msg.tokens, wrapper),
       // @ts-expect-error
       amount: number = input[0],
-      dbUser = getUser(userId),
+      dbUser = await getUser(userId),
       flipResult = Math.random() >= 0.5;
     if (dbUser.monies >= amount) {
-      setMonies(
+      await setMonies(
         userId,
         flipResult ? dbUser.monies + amount : dbUser.monies - amount
       );
-      const dbUserUpdated = getUser(userId);
+      const dbUserUpdated = await getUser(userId);
       addMessageToQueue(
         [
           {

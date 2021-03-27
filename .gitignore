@@ -1,3 +1,6 @@
 node_modules/
 build/
 .env
+firebaseadmin.json
+db.json
+*.env

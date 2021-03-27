@@ -6,4 +6,5 @@ export * from "./commands/setdodge";
 export * from "./commands/jam";
 export * from "./commands/reboot";
 export * from "./commands/total";
+export * from "./commands/steal";
 export * from "./commands/slap";

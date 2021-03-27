@@ -11,13 +11,20 @@ export async function pay({ msg, wrapper, userId }: CommandInput) {
       reciever: string = input[0],
       // @ts-expect-error
       amount: number = input[1],
-      senderDB = getUser(userId),
-      recieverDB = getUser(reciever);
+      [senderDB, recieverDB] = await Promise.all([
+        getUser(userId),
+        getUser(reciever),
+      ]);
 
     if (senderDB.monies >= amount) {
-      setMonies(userId, senderDB.monies - amount);
-      setMonies(reciever, recieverDB.monies + amount);
-      addMessageToQueue([{ t: "text", v: "Transaction successful." }], { userId, wrapper });
+      await Promise.all([
+        setMonies(userId, senderDB.monies - amount),
+        setMonies(reciever, recieverDB.monies + amount),
+      ]);
+      addMessageToQueue([{ t: "text", v: "Transaction successful." }], {
+        userId,
+        wrapper,
+      });
     } else throw "You don't have enough DodgyCoin.";
   } catch (error) {
     console.log(error);

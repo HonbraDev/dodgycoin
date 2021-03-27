@@ -1,6 +1,6 @@
 import { CommandInput } from "../commandTools/CommandInput";
 import getUserFromTag from "../getUserFromTag";
-import { getUser, setMonies } from "../totallyARealDB";
+import { setMonies } from "../totallyARealDB";
 import { addMessageToQueue } from "../queue";
 
 export async function setdodge({ wrapper, msg, userId }: CommandInput) {
@@ -12,7 +12,7 @@ export async function setdodge({ wrapper, msg, userId }: CommandInput) {
       if (typeof theUser !== "undefined") {
         const id = theUser.id;
         if (id) {
-          setMonies(id, monies);
+          await setMonies(id, monies);
           addMessageToQueue([
             { t: "text", v: "Set the balance of" },
             { t: "mention", v: theUser.username },

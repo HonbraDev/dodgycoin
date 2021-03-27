@@ -1,70 +1,30 @@
-import low from "lowdb";
-import FileSync from "lowdb/adapters/FileSync";
-
 import { User } from "./realDBTypings";
+import * as admin from "firebase-admin";
 
-const adapter = new FileSync("db.json");
-const db = low(adapter);
+const serviceAccount = require("../firebaseadmin.json");
 
-function getUser(id: string): User {
-  const user = db
-    .get("users")
-    // @ts-expect-error
-    .find({ id })
-    .value();
-  if (typeof user != "undefined") {
-    return user;
-  } else {
-    // @ts-expect-error
-    db.get("users").push({ id, monies: 0 }).write();
-    return (
-      db
-        .get("users")
-        // @ts-expect-error
-        .find({ id })
-        .value()
-    );
-  }
-}
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL:
+    "https://dodgycoin-default-rtdb.europe-west1.firebasedatabase.app",
+});
 
-function isUser(id: string): boolean {
-  const user = db
-    .get("users")
-    // @ts-expect-error
-    .find({ id })
-    .value();
-  if (typeof user != "undefined") return true;
-  else return false;
-}
+const db = admin.database();
 
-function setMonies(id: string, monies: number): void {
-  if (monies < 0) monies = 0;
-  const user = db
-    .get("users")
-    // @ts-expect-error
-    .find({ id })
-    .value();
-  if (typeof user != "undefined") {
-    db.get("users")
-      // @ts-expect-error
-      .find({ id })
-      .set("monies", monies)
-      .write();
-  } else {
-    // @ts-expect-error
-    db.get("users").push({ id, monies }).write();
-    return (
-      db
-        .get("users")
-        // @ts-expect-error
-        .find({ id })
-        .value()
-    );
-  }
-}
+const getUser = (id: string) =>
+  new Promise<User>((resolve) =>
+    db.ref(`users/${id}`).once("value", (snap) => {
+      if (snap.exists()) {
+        resolve(snap.val() as User);
+      } else {
+        resolve({ monies: 0 });
+      }
+    })
+  );
 
-function getAllUsers() {
-  return db.get("users").value();
-}
+const setMonies = (id: string, monies: number) =>
+  new Promise((resolve, reject) =>
+    db.ref(`users/${id}/monies`).set(monies).then(resolve)
+  );
 
-export { getUser, isUser, setMonies, getAllUsers };
+export { getUser, setMonies };

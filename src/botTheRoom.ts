@@ -1,4 +1,4 @@
-import { getUser, isUser, setMonies } from "./totallyARealDB";
+import { getUser, setMonies } from "./totallyARealDB";
 import { Message, Wrapper, Room } from "dogehouse-js";
 import { CommandInput } from "./commandTools/CommandInput";
 import {
@@ -11,6 +11,7 @@ import {
   reboot,
   total,
   slap,
+  steal
 } from "./commands";
 import { startMessageQueue, addMessageToQueue } from "./queue";
 
@@ -33,7 +34,6 @@ const botTheRoom = async (wrapper: Wrapper, theRoom: Room): Promise<void> => {
     async ({ userId, msg }: { userId: string; msg: Message }) => {
       const text = msg.tokens.map((token) => token.v).join(" ");
       console.log(`${msg.displayName}: ${text}`);
-      console.log(msg);
       const commandInput: CommandInput = { wrapper, theRoom, msg, userId };
       if (["bbcd9b89-dd64-49f7-8612-49a333b6249b"].includes(userId)) return;
 
@@ -47,6 +47,7 @@ const botTheRoom = async (wrapper: Wrapper, theRoom: Room): Promise<void> => {
       if (msg.tokens[0].v === "$total") total(commandInput);
       if (msg.tokens[0].v === "!slap") slap(commandInput);
       if (msg.tokens[0].v === "!yeet") slap(commandInput);
+      if (msg.tokens[0].v === "$steal") steal(commandInput);
     }
   );
 

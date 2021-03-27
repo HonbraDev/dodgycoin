@@ -9,7 +9,7 @@ export async function monies({ wrapper, msg, userId }: CommandInput) {
     if (typeof username === "string") {
       const user = await getUserFromTag(username, wrapper);
       if (typeof user !== "undefined") {
-        const economyUser = getUser(user.id);
+        const economyUser = await getUser(user.id);
         addMessageToQueue(
           [
             {
@@ -45,7 +45,7 @@ export async function monies({ wrapper, msg, userId }: CommandInput) {
       });
     }
   } else {
-    const user = getUser(userId);
+    const user = await getUser(userId);
     addMessageToQueue(
       [
         {
