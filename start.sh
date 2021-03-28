@@ -1,4 +1,1 @@
-while :
-do
-	node . 1
-done
+screen -d -m -S DODGYCOIN bash startloop.sh
