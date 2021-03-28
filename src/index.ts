@@ -26,13 +26,13 @@ const main = async () => {
 
     startMessageQueue();
 
-    /* addMessageToQueue([
+    addMessageToQueue([
       {
         t: "text",
         v:
-          "Hello, I am DodgyCoin, your personal banker. I no longer brick rooms. Try doing $help.",
+          "Hello, I am DodgyCoin, your personal banker. I have been deployed to a dedicated Linux server. Try doing $help.",
       },
-    ]); */
+    ]);
 
     wrapper.subscribe.newChatMsg(chatHandler);
 
