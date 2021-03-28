@@ -1,8 +1,9 @@
 import { getUser, setMonies } from "./database";
 import { wrapper } from "./dogehouse";
+import logger from "./logger";
 
 const addDodgeForActivity = async () => {
-  console.log("Incrementing users' monies");
+  logger("Incrementing users' monies", true);
   const users = (await wrapper.query.getRoomUsers()).users.map(
     (user) => user.id
   );
@@ -10,7 +11,7 @@ const addDodgeForActivity = async () => {
     const user = await getUser(users[i]);
     await setMonies(users[i], user.monies + 1);
   }
-  console.log("Done incrementing");
+  logger("    Done  incrementing    ", true);
 };
 
 export default addDodgeForActivity;

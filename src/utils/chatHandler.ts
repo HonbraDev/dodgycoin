@@ -1,6 +1,7 @@
 import { CommandInput } from "../typings/CommandInput";
-import { Message, UUID } from "@dogehouse/kebab";
+import { Message, UUID, tokensToString } from "@dogehouse/kebab";
 import { wrapper } from "./dogehouse";
+import logger from "./logger";
 import {
   coinflip,
   help,
@@ -15,8 +16,10 @@ import {
 } from "./commands";
 
 const chatHandler = ({ userId, msg }: { userId: UUID; msg: Message }) => {
-  const text = msg.tokens.map((token) => token.v).join(" ");
-  console.log(`${msg.displayName}: ${text}`);
+  const text = tokensToString(msg.tokens);
+
+  logger(`${msg.username}: ${text}`);
+
   const commandInput: CommandInput = { wrapper, msg, userId };
   if (["bbcd9b89-dd64-49f7-8612-49a333b6249b"].includes(userId)) return;
 
