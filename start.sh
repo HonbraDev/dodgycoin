@@ -1,1 +1,1 @@
-screen -d -m -S DODGYCOIN bash startloop.sh
+screen -d -m -S DODGYCOIN bash startloop.sh $1 $2

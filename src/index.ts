@@ -14,7 +14,7 @@ const main = async () => {
     if (process.argv[3]) theRoom = process.argv[3];
 
     console.log(`Joining ${theRoom}.`);
-    const roomInfo = await wrapper.mutation.joinRoomAndGetInfo(theRoom);
+    const roomInfo = await wrapper.query.joinRoomAndGetInfo(theRoom);
     if ("error" in roomInfo) throw roomInfo.error;
     console.log(
       `Joined ${roomInfo.room.name}. There ${
@@ -29,8 +29,7 @@ const main = async () => {
     addMessageToQueue([
       {
         t: "text",
-        v:
-          "Hello, I am DodgyCoin, your personal banker. I have been deployed to a dedicated Linux server. Try doing $help.",
+        v: "Haha 🧱 go $help",
       },
     ]);
 

@@ -13,12 +13,13 @@ import {
   total,
   slap,
   steal,
+  speak,
 } from "./commands";
 
 const chatHandler = ({ userId, msg }: { userId: UUID; msg: Message }) => {
   const text = tokensToString(msg.tokens);
 
-  logger(`${msg.username}: ${text}`);
+  logger(`${msg.username} (${userId}): ${text}`);
 
   const commandInput: CommandInput = { wrapper, msg, userId };
   if (["bbcd9b89-dd64-49f7-8612-49a333b6249b"].includes(userId)) return;
@@ -34,6 +35,7 @@ const chatHandler = ({ userId, msg }: { userId: UUID; msg: Message }) => {
   if (msg.tokens[0].v === "!slap") slap(commandInput);
   if (msg.tokens[0].v === "!yeet") slap(commandInput);
   if (msg.tokens[0].v === "$steal") steal(commandInput);
+  if (msg.tokens[0].v === "$amogus") speak(commandInput);
 };
 
 export default chatHandler;

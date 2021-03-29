@@ -8,3 +8,4 @@ export * from "../commands/reboot";
 export * from "../commands/total";
 export * from "../commands/steal";
 export * from "../commands/slap";
+export * from "../commands/speak";
