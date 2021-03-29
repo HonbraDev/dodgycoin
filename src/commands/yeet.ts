@@ -2,7 +2,7 @@ import { CommandInput } from "../typings/CommandInput";
 import { addMessageToQueue } from "../utils/queue";
 import honbraIds from "../utils/honbraIDs";
 
-export async function speak({ wrapper, userId, msg }: CommandInput) {
+export async function yeet({ wrapper, userId, msg }: CommandInput) {
   try {
     if (typeof msg.tokens[1] !== "undefined") {
       const roomUsers = await wrapper.query.getRoomUsers();
@@ -12,7 +12,7 @@ export async function speak({ wrapper, userId, msg }: CommandInput) {
         const userTag = msg.tokens[1].v as string;
         const userProfile = await wrapper.query.getUserProfile(userTag);
         if (userProfile) {
-          await wrapper.mutation.addSpeaker(userProfile.id);
+          await wrapper.mutation.setListener(userProfile.id);
         } else
           addMessageToQueue(
             [
@@ -34,7 +34,7 @@ export async function speak({ wrapper, userId, msg }: CommandInput) {
           { userId, wrapper }
         );
     } else {
-      wrapper.mutation.addSpeaker(userId);
+      wrapper.mutation.setListener(userId);
     }
   } catch (error) {
     console.log(error);

@@ -14,6 +14,7 @@ import {
   slap,
   steal,
   speak,
+  yeet,
 } from "./commands";
 
 const chatHandler = ({ userId, msg }: { userId: UUID; msg: Message }) => {
@@ -35,7 +36,8 @@ const chatHandler = ({ userId, msg }: { userId: UUID; msg: Message }) => {
   if (msg.tokens[0].v === "!slap") slap(commandInput);
   if (msg.tokens[0].v === "!yeet") slap(commandInput);
   if (msg.tokens[0].v === "$steal") steal(commandInput);
-  if (msg.tokens[0].v === "$amogus") speak(commandInput);
+  if (msg.tokens[0].v === "$speak") speak(commandInput);
+  if (msg.tokens[0].v === "$yeet") yeet(commandInput);
 };
 
 export default chatHandler;
