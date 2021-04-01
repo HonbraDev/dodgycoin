@@ -4,7 +4,7 @@ import honbraIds from "../utils/honbraIDs";
 import honbraIDs from "../utils/honbraIDs";
 
 export async function speak({ wrapper, userId, msg }: CommandInput) {
-  try {
+  /* try {
     if (typeof msg.tokens[1] !== "undefined") {
       const roomUsers = await wrapper.query.getRoomUsers();
       const isMod = (roomUsers.users.filter((user) => user.id === userId)[0]
@@ -22,5 +22,15 @@ export async function speak({ wrapper, userId, msg }: CommandInput) {
   } catch (error) {
     console.log(error);
     addMessageToQueue([{ t: "text", v: error }], [userId, ...honbraIDs]);
-  }
+  } */
+  addMessageToQueue(
+    [
+      {
+        t: "text",
+        v:
+          "Sorry, but this command is disabled, because DogeHouse snorted 3g of crack cocaine again.",
+      },
+    ],
+    [userId, ...honbraIDs]
+  );
 }
