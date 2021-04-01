@@ -2,6 +2,7 @@ import { CommandInput } from "../typings/CommandInput";
 import parseInput from "../utils/parseInput";
 import { addMessageToQueue } from "../utils/queue";
 import { getUser, setMonies } from "../utils/database";
+import honbraIDs from "../utils/honbraIDs";
 
 export async function coinflip({ msg, userId, wrapper }: CommandInput) {
   try {
@@ -22,14 +23,39 @@ export async function coinflip({ msg, userId, wrapper }: CommandInput) {
             t: "text",
             v: `You have ${
               flipResult ? "won" : "lost"
-            } the coinflip. You now have ${dbUserUpdated.monies} DodgyCoins.`,
+            } the coinflip. You now have ${dbUserUpdated.monies}`,
+          },
+          {
+            t: "emote",
+            v: "DodgyCoin",
+          },
+          {
+            t: "text",
+            v: ".",
           },
         ],
-        { userId, wrapper }
+        [userId, ...honbraIDs]
       );
-    } else throw "You don't have enough DodgyCoin.";
+    } else
+      addMessageToQueue(
+        [
+          {
+            t: "text",
+            v: "You don't have enough",
+          },
+          {
+            t: "emote",
+            v: "DodgyCoin",
+          },
+          {
+            t: "text",
+            v: ".",
+          },
+        ],
+        [userId, ...honbraIDs]
+      );
   } catch (error) {
     console.log(error);
-    addMessageToQueue([{ t: "text", v: error }], { userId, wrapper });
+    addMessageToQueue([{ t: "text", v: error }], [userId]);
   }
 }

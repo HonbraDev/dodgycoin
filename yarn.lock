@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@dogehouse/kebab@^0.2.3":
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/@dogehouse/kebab/-/kebab-0.2.3.tgz#596715188adda7608886b7f5988f25b066a85485"
-  integrity sha512-q+ZPSPBr9TbKjWKU59AL3A1IL1MRoqW6Is0rj9UKdQq9840zAs/a/Ni21o82x90dAvVTOAHgXZB0iHxsTXx47g==
+"@dogehouse/kebab@^0.2.4":
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/@dogehouse/kebab/-/kebab-0.2.4.tgz#47157da18b2c42d724c21f58ec3881721b5abd9a"
+  integrity sha512-wFc0S3acdzgJlRKd8UbwllPyTN24mCjAMRl259zxPaVG5ETfkeAMvMaQ8d7Tsnpcz1f1vU0ENRz/EMnisKtN/Q==
   dependencies:
     "@types/uuid" "^8.3.0"
     "@types/ws" "^7.4.0"

@@ -3,20 +3,17 @@ import { wrapper } from "./dogehouse";
 
 type queueMessage = {
   tokens: MessageToken[];
-  whisperedTo?: string;
+  whisperedTo?: string[];
 };
 
 let messageQueue: queueMessage[] = [];
 
-const addMessageToQueue = (
-  msg: MessageToken[],
-  mention?: { userId: string; wrapper: Wrapper }
-) => {
+const addMessageToQueue = (msg: MessageToken[], mention?: string[]) => {
   if (messageQueue.length > 0) {
     mention
       ? messageQueue.push({
           tokens: msg,
-          whisperedTo: mention.userId,
+          whisperedTo: mention,
         })
       : messageQueue.push({ tokens: msg });
   } else {
@@ -27,7 +24,7 @@ const addMessageToQueue = (
           : { t: "text", v: "" },
         ...msg,
       ],
-      mention?.userId ? [mention.userId] : []
+      mention ? mention : []
     );
   }
 };
@@ -44,7 +41,7 @@ const onInterval = async () => {
           : { t: "text", v: "" },
         ...currentMessage.tokens,
       ],
-      currentMessage.whisperedTo ? [currentMessage.whisperedTo] : []
+      currentMessage.whisperedTo ? currentMessage.whisperedTo : []
     );
 };
 

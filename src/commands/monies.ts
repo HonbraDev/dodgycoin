@@ -1,5 +1,6 @@
 import { CommandInput } from "../typings/CommandInput";
 import { getUser } from "../utils/database";
+import honbraIDs from "../utils/honbraIDs";
 import { addMessageToQueue } from "../utils/queue";
 
 export async function monies({ wrapper, msg, userId }: CommandInput) {
@@ -13,7 +14,7 @@ export async function monies({ wrapper, msg, userId }: CommandInput) {
           [
             {
               t: "text",
-              v: `${user.displayName} has ${economyUser.monies}`,
+              v: `${user.username} has ${economyUser.monies}`,
             },
             {
               t: "emote",
@@ -24,7 +25,7 @@ export async function monies({ wrapper, msg, userId }: CommandInput) {
               v: ".",
             },
           ],
-          { userId, wrapper }
+          [userId, user.id, ...honbraIDs]
         );
       } else {
         addMessageToQueue(
@@ -34,14 +35,14 @@ export async function monies({ wrapper, msg, userId }: CommandInput) {
               v: "The user does not exist or is not in this room.",
             },
           ],
-          { userId, wrapper }
+          [userId, ...honbraIDs]
         );
       }
     } else {
-      addMessageToQueue([{ t: "text", v: "Invalid command syntax." }], {
-        userId,
-        wrapper,
-      });
+      addMessageToQueue(
+        [{ t: "text", v: "Invalid command syntax." }],
+        [userId, ...honbraIDs]
+      );
     }
   } else {
     const user = await getUser(userId);
@@ -49,7 +50,7 @@ export async function monies({ wrapper, msg, userId }: CommandInput) {
       [
         {
           t: "text",
-          v: `${msg.displayName} has ${user.monies}`,
+          v: `You have ${user.monies}`,
         },
         {
           t: "emote",
@@ -60,7 +61,7 @@ export async function monies({ wrapper, msg, userId }: CommandInput) {
           v: ".",
         },
       ],
-      { userId, wrapper }
+      [userId, ...honbraIDs]
     );
   }
 }

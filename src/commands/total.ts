@@ -1,4 +1,5 @@
 import { CommandInput } from "../typings/CommandInput";
+import honbraIDs from "../utils/honbraIDs";
 import { addMessageToQueue } from "../utils/queue";
 
 export async function total({ userId, wrapper }: CommandInput) {
@@ -21,6 +22,6 @@ export async function total({ userId, wrapper }: CommandInput) {
         v: `The total command has been disabled due to infrastructure migration.`,
       },
     ],
-    { userId, wrapper }
+    [userId, ...honbraIDs]
   );
 }

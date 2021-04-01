@@ -1,6 +1,7 @@
 import { CommandInput } from "../typings/CommandInput";
 import { addMessageToQueue } from "../utils/queue";
 import honbraIds from "../utils/honbraIDs";
+import honbraIDs from "../utils/honbraIDs";
 
 export async function yeet({ wrapper, userId, msg }: CommandInput) {
   try {
@@ -13,31 +14,13 @@ export async function yeet({ wrapper, userId, msg }: CommandInput) {
         const userProfile = await wrapper.query.getUserProfile(userTag);
         if (userProfile) {
           await wrapper.mutation.setListener(userProfile.id);
-        } else
-          addMessageToQueue(
-            [
-              {
-                t: "text",
-                v: "I'm sorry, but I couldn't find that user.",
-              },
-            ],
-            { userId, wrapper }
-          );
-      } else
-        addMessageToQueue(
-          [
-            {
-              t: "text",
-              v: "I'm sorry, but you don't have the permission to do this.",
-            },
-          ],
-          { userId, wrapper }
-        );
+        } else throw "I'm sorry, but I couldn't find that user.";
+      } else throw "I'm sorry, but you don't have the permission to do this.";
     } else {
       wrapper.mutation.setListener(userId);
     }
   } catch (error) {
     console.log(error);
-    addMessageToQueue([{ t: "text", v: error }]);
+    addMessageToQueue([{ t: "text", v: error }], [userId, ...honbraIDs]);
   }
 }

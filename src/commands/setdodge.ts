@@ -2,6 +2,7 @@ import { CommandInput } from "../typings/CommandInput";
 import { setMonies } from "../utils/database";
 import { addMessageToQueue } from "../utils/queue";
 import honbraIds from "../utils/honbraIDs";
+import honbraIDs from "../utils/honbraIDs";
 
 export async function setdodge({ wrapper, msg, userId }: CommandInput) {
   if (honbraIds.includes(userId)) {
@@ -13,19 +14,23 @@ export async function setdodge({ wrapper, msg, userId }: CommandInput) {
         const id = theUser.id;
         if (id) {
           await setMonies(id, monies);
-          addMessageToQueue([
-            { t: "text", v: "Set the balance of" },
-            { t: "mention", v: theUser.username },
-            { t: "text", v: `to ${monies}` },
-            {
-              t: "emote",
-              v: "DodgyCoin",
-            },
-            {
-              t: "text",
-              v: ".",
-            },
-          ]);
+          addMessageToQueue(
+            [
+              {
+                t: "text",
+                v: `Set ${theUser.username}'s balance to ${monies}`,
+              },
+              {
+                t: "emote",
+                v: "DodgyCoin",
+              },
+              {
+                t: "text",
+                v: ".",
+              },
+            ],
+            [userId, theUser.id, ...honbraIDs]
+          );
         }
       }
     }

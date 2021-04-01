@@ -1,4 +1,5 @@
 import { CommandInput } from "../typings/CommandInput";
+import honbraIDs from "../utils/honbraIDs";
 import { addMessageToQueue } from "../utils/queue";
 
 export function help({ wrapper, userId }: CommandInput) {
@@ -10,6 +11,6 @@ export function help({ wrapper, userId }: CommandInput) {
           "DodgyCoin help: $monies ?<user> - check your balance | $pay <user> <amount> - pay your mates | $coinflip <amount> - flip a coin for <amount> DodgyCoin and potentially win | Creator's Discord is Honbra#7537",
       },
     ],
-    { userId, wrapper }
+    [userId, ...honbraIDs]
   );
 }
