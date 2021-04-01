@@ -20,7 +20,7 @@ export async function steal({ msg, wrapper, userId }: CommandInput) {
 
       if (!receiverProfile) throw "Could not find that user on DogeHouse.";
 
-      if (senderDB.monies >= amount) {
+      if (receiverDB.monies >= amount) {
         await Promise.all([
           setMonies(userId, senderDB.monies + amount),
           setMonies(receiver, receiverDB.monies - amount),
