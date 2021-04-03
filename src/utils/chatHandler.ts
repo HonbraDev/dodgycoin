@@ -1,5 +1,5 @@
 import { CommandInput } from "../typings/CommandInput";
-import { Message, UUID, tokensToString } from "@dogehouse/kebab";
+import { Message, UUID, tokensToString } from "dodgy-kebab";
 import { wrapper } from "./dogehouse";
 import logger from "./logger";
 import {

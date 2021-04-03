@@ -1,4 +1,4 @@
-import { Wrapper, Message } from "@dogehouse/kebab";
+import { Wrapper, Message } from "dodgy-kebab";
 
 export type CommandInput = {
   wrapper: Wrapper;

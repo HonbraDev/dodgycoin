@@ -13,7 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@dogehouse/kebab": "^0.2.4",
+    "dodgy-kebab": "^0.2.5",
     "dotenv": "^8.2.0",
     "firebase-admin": "^9.5.0",
     "isomorphic-ws": "^4.0.1",

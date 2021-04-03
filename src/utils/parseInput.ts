@@ -1,4 +1,4 @@
-import { MessageToken, Wrapper } from "@dogehouse/kebab";
+import { MessageToken, Wrapper } from "dodgy-kebab";
 
 const parseInput = async (
   types: InputTypes[],
