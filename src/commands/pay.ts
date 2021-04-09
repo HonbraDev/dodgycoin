@@ -1,12 +1,14 @@
+import { format } from "doge-utils";
 import { CommandInput } from "../typings/CommandInput";
 import { getUser, setMonies } from "../utils/database";
+import { wrapper } from "../utils/dogehouse";
 import honbraIDs from "../utils/honbraIDs";
 import parseInput from "../utils/parseInput";
 import { addMessageToQueue } from "../utils/queue";
 
-export async function pay({ msg, wrapper, userId }: CommandInput) {
+export async function pay({ msg, userId }: CommandInput) {
   try {
-    const input = await parseInput(["user", "number"], msg.tokens, wrapper),
+    const input = await parseInput(["user", "number"], msg.tokens),
       // @ts-expect-error
       receiver: string = input[0],
       // @ts-expect-error
@@ -17,7 +19,8 @@ export async function pay({ msg, wrapper, userId }: CommandInput) {
         wrapper.query.getUserProfile(receiver),
       ]);
 
-    if (!receiverProfile) throw "Could not find that user on DogeHouse.";
+    if (!receiverProfile)
+      throw "Could not find that user on DogeHouse. Much sad.";
 
     if (senderDB.monies >= amount) {
       await Promise.all([
@@ -25,37 +28,19 @@ export async function pay({ msg, wrapper, userId }: CommandInput) {
         setMonies(receiver, receiverDB.monies + amount),
       ]);
       addMessageToQueue(
-        [
-          { t: "text", v: `${msg.username} sent ${amount}` },
-          {
-            t: "emote",
-            v: "DodgyCoin",
-          },
-          { t: "text", v: `to ${receiverProfile.username}.` },
-        ],
+        format(
+          `${msg.username} sent ${amount} :dodgycoin:  to ${receiverProfile.username}.`
+        ),
         [userId, receiverProfile.id, ...honbraIDs]
       );
     } else
       addMessageToQueue(
-        [
-          {
-            t: "text",
-            v: "You don't have enough",
-          },
-          {
-            t: "emote",
-            v: "DodgyCoin",
-          },
-          {
-            t: "text",
-            v: ".",
-          },
-        ],
+        format(`You don't have enough :dodgycoin: . Much sad.`),
         [userId, ...honbraIDs]
       );
   } catch (error) {
     console.log(error);
-    addMessageToQueue([{ t: "text", v: error }], [userId, ...honbraIDs]);
+    addMessageToQueue(format(error), [userId, ...honbraIDs]);
   }
 }
 // 𝗟𝗶𝘀𝘁 𝗼𝗳 𝗖𝗼𝗺𝗺𝗮𝗻𝗱𝘀

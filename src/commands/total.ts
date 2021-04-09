@@ -2,7 +2,7 @@ import { CommandInput } from "../typings/CommandInput";
 import honbraIDs from "../utils/honbraIDs";
 import { addMessageToQueue } from "../utils/queue";
 
-export async function total({ userId, wrapper }: CommandInput) {
+export async function total({ userId }: CommandInput) {
   /* const allUsers = getAllUsers();
   const allMonies = allUsers.map((user: { monies: number }) => user.monies);
   let totalMonies = 0;

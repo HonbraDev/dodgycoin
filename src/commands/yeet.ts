@@ -2,9 +2,11 @@ import { CommandInput } from "../typings/CommandInput";
 import { addMessageToQueue } from "../utils/queue";
 import honbraIds from "../utils/honbraIDs";
 import honbraIDs from "../utils/honbraIDs";
+import { format } from "doge-utils";
+import { wrapper } from "../utils/dogehouse";
 
-export async function yeet({ wrapper, userId, msg }: CommandInput) {
-  /* try {
+export async function yeet({ userId, msg }: CommandInput) {
+  try {
     if (typeof msg.tokens[1] !== "undefined") {
       const roomUsers = await wrapper.query.getRoomUsers();
       const isMod = (roomUsers.users.filter((user) => user.id === userId)[0]
@@ -21,8 +23,8 @@ export async function yeet({ wrapper, userId, msg }: CommandInput) {
     }
   } catch (error) {
     console.log(error);
-    addMessageToQueue([{ t: "text", v: error }], [userId, ...honbraIDs]);
-  } */
+    addMessageToQueue(format(error), [userId, ...honbraIDs]);
+  }
   addMessageToQueue(
     [
       {
