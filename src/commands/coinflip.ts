@@ -3,10 +3,12 @@ import parseInput from "../utils/parseInput";
 import { addMessageToQueue } from "../utils/queue";
 import { getUser, setMonies } from "../utils/database";
 import honbraIDs from "../utils/honbraIDs";
+import { wrapper } from "../utils/dogehouse";
+import { format } from "doge-utils";
 
-export async function coinflip({ msg, userId, wrapper }: CommandInput) {
+export async function coinflip({ msg, userId }: CommandInput) {
   try {
-    const input = await parseInput(["number"], msg.tokens, wrapper),
+    const input = await parseInput(["number"], msg.tokens),
       // @ts-expect-error
       amount: number = input[0],
       dbUser = await getUser(userId),
@@ -18,44 +20,20 @@ export async function coinflip({ msg, userId, wrapper }: CommandInput) {
       );
       const dbUserUpdated = await getUser(userId);
       addMessageToQueue(
-        [
-          {
-            t: "text",
-            v: `You have ${
-              flipResult ? "won" : "lost"
-            } the coinflip. You now have ${dbUserUpdated.monies}`,
-          },
-          {
-            t: "emote",
-            v: "DodgyCoin",
-          },
-          {
-            t: "text",
-            v: ".",
-          },
-        ],
+        format(
+          `You have ${flipResult ? "won" : "lost"} the coinflip. You now have ${
+            dbUserUpdated.monies
+          } :dodgycoin: . Much wow.`
+        ),
         [userId, ...honbraIDs]
       );
     } else
       addMessageToQueue(
-        [
-          {
-            t: "text",
-            v: "You don't have enough",
-          },
-          {
-            t: "emote",
-            v: "DodgyCoin",
-          },
-          {
-            t: "text",
-            v: ".",
-          },
-        ],
+        format(`You don't have enough :dodgycoin: . Much sad.`),
         [userId, ...honbraIDs]
       );
   } catch (error) {
     console.log(error);
-    addMessageToQueue([{ t: "text", v: error }], [userId]);
+    addMessageToQueue(format(error), [userId]);
   }
 }

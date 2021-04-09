@@ -1,10 +1,7 @@
 import { MessageToken, Wrapper } from "@dogehouse/kebab";
+import { wrapper } from "./dogehouse";
 
-const parseInput = async (
-  types: InputTypes[],
-  tokens: MessageToken[],
-  wrapper: Wrapper
-) => {
+const parseInput = async (types: InputTypes[], tokens: MessageToken[]) => {
   let output: (string | number)[] = [];
   tokens.shift();
   for (let i = 0; i < types.length; i++) {

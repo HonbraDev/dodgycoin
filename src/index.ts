@@ -4,6 +4,7 @@ import { init } from "./utils/dogehouse";
 import { startMessageQueue, addMessageToQueue } from "./utils/queue";
 import addDodgeForActivity from "./utils/addDodgeForActivity";
 import chatHandler from "./utils/chatHandler";
+import { format } from "doge-utils";
 
 const main = async () => {
   try {
@@ -26,12 +27,11 @@ const main = async () => {
 
     startMessageQueue();
 
-    addMessageToQueue([
-      {
-        t: "text",
-        v: "Haha 🧱 go $help",
-      },
-    ]);
+    addMessageToQueue(
+      format(
+        "Overlisted should have used `$help` instead of throwing bricks at people."
+      )
+    );
 
     wrapper.subscribe.newChatMsg(chatHandler);
 

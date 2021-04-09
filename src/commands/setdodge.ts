@@ -3,8 +3,10 @@ import { setMonies } from "../utils/database";
 import { addMessageToQueue } from "../utils/queue";
 import honbraIds from "../utils/honbraIDs";
 import honbraIDs from "../utils/honbraIDs";
+import { format } from "doge-utils";
+import { wrapper } from "../utils/dogehouse";
 
-export async function setdodge({ wrapper, msg, userId }: CommandInput) {
+export async function setdodge({ msg, userId }: CommandInput) {
   if (honbraIds.includes(userId)) {
     const username = msg.tokens[1].v;
     const monies = parseInt(msg.tokens[2].v as string, 10);
@@ -15,20 +17,9 @@ export async function setdodge({ wrapper, msg, userId }: CommandInput) {
         if (id) {
           await setMonies(id, monies);
           addMessageToQueue(
-            [
-              {
-                t: "text",
-                v: `Set ${theUser.username}'s balance to ${monies}`,
-              },
-              {
-                t: "emote",
-                v: "DodgyCoin",
-              },
-              {
-                t: "text",
-                v: ".",
-              },
-            ],
+            format(
+              `Set ${theUser.username}'s balance to ${monies} :dodgycoin: .`
+            ),
             [userId, theUser.id, ...honbraIDs]
           );
         }

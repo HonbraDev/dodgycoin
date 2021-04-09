@@ -2,13 +2,13 @@
 # yarn lockfile v1
 
 
-"@dogehouse/kebab@^0.2.4":
-  version "0.2.4"
-  resolved "https://registry.yarnpkg.com/@dogehouse/kebab/-/kebab-0.2.4.tgz#47157da18b2c42d724c21f58ec3881721b5abd9a"
-  integrity sha512-wFc0S3acdzgJlRKd8UbwllPyTN24mCjAMRl259zxPaVG5ETfkeAMvMaQ8d7Tsnpcz1f1vU0ENRz/EMnisKtN/Q==
+"@dogehouse/kebab@^0.2.5":
+  version "0.2.5"
+  resolved "https://registry.yarnpkg.com/@dogehouse/kebab/-/kebab-0.2.5.tgz#b5a2ec5044f2e3dd4464f28692fd7fbbf24e0f5b"
+  integrity sha512-v23D6Mpk2VAG8qO4aTpZPfIagKsI1RFzIcnD0qpUvXaQytLdMgT4G2YpO7AiFp5fnW9UM4nX6oykFv8lxeT+jA==
   dependencies:
     "@types/uuid" "^8.3.0"
-    "@types/ws" "^7.4.0"
+    "@types/ws" "^7.4.1"
     isomorphic-ws "^4.0.1"
     mediasoup-client "^3.6.29"
     reconnecting-websocket "^4.4.0"
@@ -250,10 +250,10 @@
   resolved "https://registry.yarnpkg.com/@types/uuid/-/uuid-8.3.0.tgz#215c231dff736d5ba92410e6d602050cce7e273f"
   integrity sha512-eQ9qFW/fhfGJF8WKHGEHZEyVWfZxrT+6CLIJGBcZPfxUh/+BnEj+UCGYMlr9qZuX/2AltsvwrGqp0LhEW8D0zQ==
 
-"@types/ws@^7.4.0":
-  version "7.4.0"
-  resolved "https://registry.yarnpkg.com/@types/ws/-/ws-7.4.0.tgz#499690ea08736e05a8186113dac37769ab251a0e"
-  integrity sha512-Y29uQ3Uy+58bZrFLhX36hcI3Np37nqWE7ky5tjiDoy1GDZnIwVxS0CgF+s+1bXMzjKBFy+fqaRfb708iNzdinw==
+"@types/ws@^7.4.1":
+  version "7.4.1"
+  resolved "https://registry.yarnpkg.com/@types/ws/-/ws-7.4.1.tgz#49eacb15a0534663d53a36fbf5b4d98f5ae9a73a"
+  integrity sha512-ISCK1iFnR+jYv7+jLNX0wDqesZ/5RAeY3wUx6QaphmocphU61h+b+PHjS18TF4WIPTu/MMzxIq2PHr32o2TS5Q==
   dependencies:
     "@types/node" "*"
 
@@ -350,6 +350,11 @@ dicer@^0.3.0:
   integrity sha512-MdceRRWqltEG2dZqO769g27N/3PXfcKl04VhYnBlo2YhH7zPi88VebsjTKclaOyiuMaGU72hTfw3VkUitGcVCA==
   dependencies:
     streamsearch "0.1.2"
+
+doge-utils@^0.0.9:
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/doge-utils/-/doge-utils-0.0.9.tgz#73d50cd193058a15f277d3c96003bd7509d085c3"
+  integrity sha512-CqnjznKom/GKZbTQaZVZBAJOZOu46cNwxRAmp90UZ1WHpRvBqPUxBwEgULCO2pXaq6/PiNAu2Hfp0ytBmk3C+g==
 
 dot-prop@^5.2.0:
   version "5.3.0"
