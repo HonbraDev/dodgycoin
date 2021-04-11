@@ -7,10 +7,15 @@ exec("git pull", (error, stdout, stderr) => {
   if (stdout === "Already up to date.\n")
     return console.log("Already up to date.");
 
-  exec("npm run build", (error, stdout, stderr) => {
+  exec("yarn", (error, stdout, stderr) => {
     if (error) return console.error(chalk.red(error));
     if (stderr) return console.error(chalk.red(stderr));
 
-    console.log(chalk.green("Updated successfully."));
+    exec("yarn build", (error, stdout, stderr) => {
+      if (error) return console.error(chalk.red(error));
+      if (stderr) return console.error(chalk.red(stderr));
+
+      console.log(chalk.green("Updated successfully."));
+    });
   });
 });
