@@ -7,7 +7,8 @@
     "start": "node .",
     "build": "tsc",
     "watch": "tsc --watch",
-    "buildandrun": "tsc && node ."
+    "buildandrun": "tsc && node .",
+    "update": "git pull && npm run build && echo Done updating!"
   },
   "keywords": [],
   "author": "",
