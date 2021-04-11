@@ -5,7 +5,7 @@ import { wrapper } from "../utils/dogehouse";
 import honbraIDs from "../utils/honbraIDs";
 import { addMessageToQueue } from "../utils/queue";
 
-export async function monies({ msg, userId }: CommandInput) {
+const monies = async ({ msg, userId }: CommandInput) => {
   if (msg.tokens[1]) {
     const username = msg.tokens[1].v;
     if (typeof username === "string") {
@@ -35,4 +35,6 @@ export async function monies({ msg, userId }: CommandInput) {
       [userId, ...honbraIDs]
     );
   }
-}
+};
+
+export { monies };

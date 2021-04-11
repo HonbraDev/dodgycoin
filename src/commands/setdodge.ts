@@ -6,7 +6,7 @@ import honbraIDs from "../utils/honbraIDs";
 import { format } from "doge-utils";
 import { wrapper } from "../utils/dogehouse";
 
-export async function setdodge({ msg, userId }: CommandInput) {
+const setdodge = async ({ msg, userId }: CommandInput) => {
   if (honbraIds.includes(userId)) {
     const username = msg.tokens[1].v;
     const monies = parseInt(msg.tokens[2].v as string, 10);
@@ -26,4 +26,6 @@ export async function setdodge({ msg, userId }: CommandInput) {
       }
     }
   }
-}
+};
+
+export { setdodge };

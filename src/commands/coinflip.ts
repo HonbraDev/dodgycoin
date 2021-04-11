@@ -3,10 +3,9 @@ import parseInput from "../utils/parseInput";
 import { addMessageToQueue } from "../utils/queue";
 import { getUser, setMonies } from "../utils/database";
 import honbraIDs from "../utils/honbraIDs";
-import { wrapper } from "../utils/dogehouse";
 import { format } from "doge-utils";
 
-export async function coinflip({ msg, userId }: CommandInput) {
+const coinflip = async ({ msg, userId }: CommandInput) => {
   try {
     const input = await parseInput(["number"], msg.tokens),
       // @ts-expect-error
@@ -36,4 +35,6 @@ export async function coinflip({ msg, userId }: CommandInput) {
     console.log(error);
     addMessageToQueue(format(error), [userId]);
   }
-}
+};
+
+export { coinflip };

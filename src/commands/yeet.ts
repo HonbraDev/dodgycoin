@@ -5,7 +5,7 @@ import honbraIDs from "../utils/honbraIDs";
 import { format } from "doge-utils";
 import { wrapper } from "../utils/dogehouse";
 
-export async function yeet({ userId, msg }: CommandInput) {
+const yeet = async ({ userId, msg }: CommandInput) => {
   try {
     if (typeof msg.tokens[1] !== "undefined") {
       const roomUsers = await wrapper.query.getRoomUsers();
@@ -25,14 +25,6 @@ export async function yeet({ userId, msg }: CommandInput) {
     console.log(error);
     addMessageToQueue(format(error), [userId, ...honbraIDs]);
   }
-  addMessageToQueue(
-    [
-      {
-        t: "text",
-        v:
-          "Sorry, but this command is disabled, because DogeHouse snorted 3g of crack cocaine again.",
-      },
-    ],
-    [userId, ...honbraIDs]
-  );
-}
+};
+
+export { yeet };

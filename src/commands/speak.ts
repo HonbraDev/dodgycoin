@@ -5,7 +5,7 @@ import honbraIDs from "../utils/honbraIDs";
 import { format } from "doge-utils";
 import { wrapper } from "../utils/dogehouse";
 
-export async function speak({ userId, msg }: CommandInput) {
+const speak = async ({ userId, msg }: CommandInput) => {
   try {
     if (typeof msg.tokens[1] !== "undefined") {
       const roomUsers = await wrapper.query.getRoomUsers();
@@ -25,4 +25,6 @@ export async function speak({ userId, msg }: CommandInput) {
     console.log(error);
     addMessageToQueue(format(error), [userId, ...honbraIDs]);
   }
-}
+};
+
+export { speak };

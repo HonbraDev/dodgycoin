@@ -6,7 +6,7 @@ import honbraIDs from "../utils/honbraIDs";
 import parseInput from "../utils/parseInput";
 import { addMessageToQueue } from "../utils/queue";
 
-export async function steal({ msg, userId }: CommandInput) {
+const steal = async ({ msg, userId }: CommandInput) => {
   try {
     const input = await parseInput(["user", "number"], msg.tokens),
       // @ts-expect-error
@@ -42,5 +42,6 @@ export async function steal({ msg, userId }: CommandInput) {
     console.log(error);
     addMessageToQueue(format(error), [userId, ...honbraIDs]);
   }
-}
-// 𝗟𝗶𝘀𝘁 𝗼𝗳 𝗖𝗼𝗺𝗺𝗮𝗻𝗱𝘀
+};
+
+export { steal };
