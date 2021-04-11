@@ -8,13 +8,14 @@
     "build": "tsc",
     "watch": "tsc --watch",
     "buildandrun": "tsc && node .",
-    "update": "git pull && npm run build && echo Done updating!"
+    "update": "node build/update.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@dogehouse/kebab": "^0.2.5",
+    "chalk": "^4.1.0",
     "doge-utils": "^0.0.9",
     "dotenv": "^8.2.0",
     "firebase-admin": "^9.5.0",
