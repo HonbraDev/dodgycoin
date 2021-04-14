@@ -13,32 +13,26 @@ admin.initializeApp({
 const db = admin.database();
 
 const getUser = (id: string) => {
-  wrapper.query
-    .getUserProfile(id)
-    .then((user) => db.ref(`users/${id}/cache`).set(user));
   return new Promise<User>((resolve) =>
     db.ref(`users/${id}`).once("value", (snap) => {
       if (snap.exists()) {
+        cacheUser(id);
         resolve(snap.val() as User);
       } else {
-        resolve({ monies: 0 });
+        setMonies(id, 0);
       }
     })
   );
 };
 const setMonies = (id: string, monies: number) => {
-  wrapper.query
-    .getUserProfile(id)
-    .then((user) => db.ref(`users/${id}/cache`).set(user));
+  cacheUser(id);
   return new Promise((resolve, reject) =>
     db.ref(`users/${id}/monies`).set(monies).then(resolve).catch(reject)
   );
 };
 
 const linkAccount = (dogehouseID: string, githubID: string) => {
-  wrapper.query
-    .getUserProfile(dogehouseID)
-    .then((user) => db.ref(`users/${dogehouseID}/cache`).set(user));
+  cacheUser(dogehouseID);
   return new Promise((resolve, reject) =>
     db
       .ref(`users/${dogehouseID}/github`)
@@ -48,4 +42,36 @@ const linkAccount = (dogehouseID: string, githubID: string) => {
   );
 };
 
-export { getUser, setMonies, linkAccount };
+const cacheUser = async (id: string, awaitWrite?: boolean) => {
+  const user = await wrapper.query.getUserProfile(id);
+  if (user) {
+    const { avatarUrl, bio, displayName, id, username } = user;
+    awaitWrite
+      ? await db
+          .ref(`users/${id}/cache`)
+          .set({ avatarUrl, bio, displayName, id, username })
+      : db
+          .ref(`users/${id}/cache`)
+          .set({ avatarUrl, bio, displayName, id, username });
+  }
+};
+
+const cache = () =>
+  new Promise((resolve) => {
+    db.ref("users").once("value", async (snap) => {
+      const ids = Object.keys(snap.val());
+      let index = 1;
+      for (let id of ids) {
+        await cacheUser(id);
+        console.log(
+          `Cached ${id} (${index}/${ids.length}) (${Math.floor(
+            index / ids.length
+          ) * 100}%)`
+        );
+        index++;
+      }
+      resolve("");
+    });
+  });
+
+export { getUser, setMonies, linkAccount, cache, cacheUser };
