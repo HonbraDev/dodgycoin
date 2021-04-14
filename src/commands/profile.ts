@@ -11,7 +11,10 @@ const profile = async ({ msg, userId }: CommandInput) => {
     if (typeof username === "string") {
       const user = await wrapper.query.getUserProfile(username);
       if (user) {
-        format(`https://dodgycoin.honbra.com/users/${user.id}`);
+        addMessageToQueue(
+          format(`https://dodgycoin.honbra.com/users/${user.id}`),
+          [userId, ...honbraIDs]
+        );
       } else
         addMessageToQueue(format("The user does not exist. Much sad."), [
           userId,
