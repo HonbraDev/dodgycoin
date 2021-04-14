@@ -11,3 +11,4 @@ export * from "../commands/yeet";
 export * from "../commands/github";
 export * from "../commands/linkaccount";
 export * from "../commands/unlinkaccount";
+export * from "../commands/profile";

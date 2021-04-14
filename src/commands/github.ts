@@ -6,7 +6,7 @@ import { addMessageToQueue } from "../utils/queue";
 const github = async ({ userId }: CommandInput) => {
   addMessageToQueue(
     format(
-      "I am open-source! You can find my code at https://github.com/honbradev/dodgycoin. Such code."
+      "I am open-source! You can find my code at https://github.com/honbradev/dodgycoin Such code."
     ),
     [userId, ...honbraIDs]
   );

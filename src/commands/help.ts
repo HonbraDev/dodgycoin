@@ -4,12 +4,10 @@ import honbraIDs from "../utils/honbraIDs";
 import { addMessageToQueue } from "../utils/queue";
 
 const help = async ({ userId }: CommandInput) => {
-  addMessageToQueue(
-    format(
-      "DodgyCoin help: $monies ?<user> - check your balance | $pay <user> <amount> - pay your mates | $coinflip <amount> - flip a coin for <amount> DodgyCoin and potentially win | $github - GitHub link"
-    ),
-    [userId, ...honbraIDs]
-  );
+  addMessageToQueue(format("https://dodgycoin.honbra.com/commands"), [
+    userId,
+    ...honbraIDs,
+  ]);
 };
 
 export { help };
