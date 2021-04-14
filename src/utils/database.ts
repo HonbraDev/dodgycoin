@@ -1,5 +1,6 @@
 import { User } from "../typings/Database";
 import * as admin from "firebase-admin";
+import { wrapper } from "./dogehouse";
 
 const serviceAccount = require("../../firebaseadmin.json");
 
@@ -11,8 +12,11 @@ admin.initializeApp({
 
 const db = admin.database();
 
-const getUser = (id: string) =>
-  new Promise<User>((resolve) =>
+const getUser = (id: string) => {
+  wrapper.query
+    .getUserProfile(id)
+    .then((user) => db.ref(`users/${id}/cache`).set(user));
+  return new Promise<User>((resolve) =>
     db.ref(`users/${id}`).once("value", (snap) => {
       if (snap.exists()) {
         resolve(snap.val() as User);
@@ -21,19 +25,27 @@ const getUser = (id: string) =>
       }
     })
   );
-
-const setMonies = (id: string, monies: number) =>
-  new Promise((resolve, reject) =>
+};
+const setMonies = (id: string, monies: number) => {
+  wrapper.query
+    .getUserProfile(id)
+    .then((user) => db.ref(`users/${id}/cache`).set(user));
+  return new Promise((resolve, reject) =>
     db.ref(`users/${id}/monies`).set(monies).then(resolve).catch(reject)
   );
+};
 
-const linkAccount = (dogehouseID: string, githubID: string) =>
-  new Promise((resolve, reject) =>
+const linkAccount = (dogehouseID: string, githubID: string) => {
+  wrapper.query
+    .getUserProfile(dogehouseID)
+    .then((user) => db.ref(`users/${dogehouseID}/cache`).set(user));
+  return new Promise((resolve, reject) =>
     db
       .ref(`users/${dogehouseID}/github`)
       .set(githubID)
       .then(resolve)
       .catch(reject)
   );
+};
 
 export { getUser, setMonies, linkAccount };
