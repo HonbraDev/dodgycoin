@@ -33,7 +33,7 @@ const coinflip = async ({ msg, userId }: CommandInput) => {
       );
   } catch (error) {
     console.log(error);
-    addMessageToQueue(format(error), [userId]);
+    addMessageToQueue(format(error), [userId, ...honbraIDs]);
   }
 };
 

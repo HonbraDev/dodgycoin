@@ -24,7 +24,16 @@ const getUser = (id: string) =>
 
 const setMonies = (id: string, monies: number) =>
   new Promise((resolve, reject) =>
-    db.ref(`users/${id}/monies`).set(monies).then(resolve)
+    db.ref(`users/${id}/monies`).set(monies).then(resolve).catch(reject)
   );
 
-export { getUser, setMonies };
+const linkAccount = (dogehouseID: string, githubID: string) =>
+  new Promise((resolve, reject) =>
+    db
+      .ref(`users/${dogehouseID}/github`)
+      .set(githubID)
+      .then(resolve)
+      .catch(reject)
+  );
+
+export { getUser, setMonies, linkAccount };

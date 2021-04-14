@@ -24,6 +24,8 @@ const chatHandler = ({ userId, msg }: { userId: UUID; msg: Message }) => {
     if (msg.tokens[0].v === "$speak") cmd.speak(commandInput);
     if (msg.tokens[0].v === "$yeet") cmd.yeet(commandInput);
     if (msg.tokens[0].v === "$github") cmd.github(commandInput);
+    if (msg.tokens[0].v === "$linkaccount") cmd.linkaccount(commandInput);
+    if (msg.tokens[0].v === "$unlinkaccount") cmd.unlinkaccount(commandInput);
   }
 };
 

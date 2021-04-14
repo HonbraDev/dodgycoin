@@ -9,3 +9,5 @@ export * from "../commands/steal";
 export * from "../commands/speak";
 export * from "../commands/yeet";
 export * from "../commands/github";
+export * from "../commands/linkaccount";
+export * from "../commands/unlinkaccount";
