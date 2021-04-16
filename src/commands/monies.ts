@@ -1,6 +1,6 @@
 import { format } from "doge-utils";
 import { CommandInput } from "../typings/CommandInput";
-import { getUser } from "../utils/database";
+import { getUser } from "../utils/supabase";
 import { wrapper } from "../utils/dogehouse";
 import honbraIDs from "../utils/honbraIDs";
 import { addMessageToQueue } from "../utils/queue";
@@ -14,7 +14,7 @@ const monies = async ({ msg, userId }: CommandInput) => {
         const economyUser = await getUser(user.id);
         addMessageToQueue(
           format(
-            `${user.username} has ${economyUser.monies} :dodgycoin: . Such monies.`
+            `${user.username} has ${economyUser.money} :dodgycoin: . Such monies.`
           ),
           [userId, user.id, ...honbraIDs]
         );
@@ -31,7 +31,7 @@ const monies = async ({ msg, userId }: CommandInput) => {
   } else {
     const user = await getUser(userId);
     addMessageToQueue(
-      format(`You have ${user.monies} :dodgycoin: . Such monies.`),
+      format(`You have ${user.money} :dodgycoin: . Such monies.`),
       [userId, ...honbraIDs]
     );
   }

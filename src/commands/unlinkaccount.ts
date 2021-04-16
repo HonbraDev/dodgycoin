@@ -1,7 +1,7 @@
 import { format } from "doge-utils";
 import { CommandInput } from "../typings/CommandInput";
 import { addMessageToQueue } from "../utils/queue";
-import { linkAccount } from "../utils/database";
+import { linkAccount } from "../utils/supabase";
 import honbraIDs from "../utils/honbraIDs";
 
 const unlinkaccount = async ({ msg, userId }: CommandInput) => {

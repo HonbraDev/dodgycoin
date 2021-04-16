@@ -16,6 +16,7 @@
   "dependencies": {
     "@dogehouse/kebab": "^0.2.5",
     "@octokit/rest": "^18.5.2",
+    "@supabase/supabase-js": "^1.11.6",
     "chalk": "^4.1.0",
     "doge-utils": "^0.0.9",
     "dotenv": "^8.2.0",

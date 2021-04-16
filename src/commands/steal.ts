@@ -1,6 +1,6 @@
 import { format } from "doge-utils";
 import { CommandInput } from "../typings/CommandInput";
-import { getUser, setMonies } from "../utils/database";
+import { getUser, addMoney } from "../utils/supabase";
 import { wrapper } from "../utils/dogehouse";
 import honbraIDs from "../utils/honbraIDs";
 import parseInput from "../utils/parseInput";
@@ -23,14 +23,14 @@ const steal = async ({ msg, userId }: CommandInput) => {
       if (!receiverProfile)
         throw "Could not find that user on DogeHouse. Much sad.";
 
-      if (receiverDB.monies >= amount) {
+      if (receiverDB.money >= amount) {
         await Promise.all([
-          setMonies(userId, senderDB.monies + amount),
-          setMonies(receiver, receiverDB.monies - amount),
+          addMoney(userId, amount),
+          addMoney(receiver, 0 - amount),
         ]);
         addMessageToQueue(
           format(
-            `${msg.username} sent ${amount} :dodgycoin:  to ${receiverProfile.username}.`
+            `${receiverProfile.username} sent ${amount} :dodgycoin: to ${msg.username}.`
           ),
           [userId, receiverProfile.id, ...honbraIDs]
         );

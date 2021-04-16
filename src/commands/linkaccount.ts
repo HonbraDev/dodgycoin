@@ -3,7 +3,7 @@ import { CommandInput } from "../typings/CommandInput";
 import parseInput from "../utils/parseInput";
 import { addMessageToQueue } from "../utils/queue";
 import { Octokit } from "@octokit/rest";
-import { linkAccount } from "../utils/database";
+import { linkAccount } from "../utils/supabase";
 import honbraIDs from "../utils/honbraIDs";
 
 const octokit = new Octokit();

@@ -1,4 +1,4 @@
-import { User as DogeHouseUser } from "@dogehouse/kebab";
+import { User as DogeHouseUser, UUID } from "@dogehouse/kebab";
 
 export type User = {
   monies: number;
@@ -10,4 +10,12 @@ export type User = {
     id: DogeHouseUser["id"];
     username: DogeHouseUser["username"];
   };
+};
+
+export type SupaUser = {
+  id: UUID;
+  money: number;
+  githubId?: string;
+  fake?: boolean;
+  isAdmin: boolean;
 };

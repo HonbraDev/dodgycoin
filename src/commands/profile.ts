@@ -1,6 +1,5 @@
 import { format } from "doge-utils";
 import { CommandInput } from "../typings/CommandInput";
-import { getUser } from "../utils/database";
 import { wrapper } from "../utils/dogehouse";
 import honbraIDs from "../utils/honbraIDs";
 import { addMessageToQueue } from "../utils/queue";

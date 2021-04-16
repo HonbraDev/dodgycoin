@@ -1,6 +1,6 @@
-import { getUser, setMonies } from "./database";
 import { wrapper } from "./dogehouse";
 import logger from "./logger";
+import { addMoney } from "./supabase";
 
 const addDodgeForActivity = async () => {
   logger("Incrementing users' monies", true);
@@ -8,10 +8,9 @@ const addDodgeForActivity = async () => {
     (user) => user.id
   );
   for (let i = 0; i < users.length; i++) {
-    const user = await getUser(users[i]);
-    await setMonies(users[i], user.monies + 1);
+    await addMoney(users[i], 1);
   }
-  logger("    Done  incrementing    ", true);
+  logger("Done  incrementing", true);
 };
 
 export default addDodgeForActivity;

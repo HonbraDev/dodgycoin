@@ -5,6 +5,7 @@ import { startMessageQueue, addMessageToQueue } from "./utils/queue";
 import addDodgeForActivity from "./utils/addDodgeForActivity";
 import chatHandler from "./utils/chatHandler";
 import { format } from "doge-utils";
+import logger from "./utils/logger";
 
 const main = async () => {
   try {
@@ -37,8 +38,8 @@ const main = async () => {
 
     setInterval(addDodgeForActivity, 60000);
   } catch (e) {
-    if (e.code === 4001) console.error("invalid token!");
-    console.error(e);
+    if (e.code === 4001) logger("Invalid token.");
+    logger(e);
     process.exit();
   }
 };

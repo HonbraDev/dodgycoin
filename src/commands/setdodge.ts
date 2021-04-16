@@ -1,5 +1,5 @@
 import { CommandInput } from "../typings/CommandInput";
-import { setMonies } from "../utils/database";
+import { setMoney } from "../utils/supabase";
 import { addMessageToQueue } from "../utils/queue";
 import honbraIds from "../utils/honbraIDs";
 import honbraIDs from "../utils/honbraIDs";
@@ -15,7 +15,7 @@ const setdodge = async ({ msg, userId }: CommandInput) => {
       if (theUser) {
         const id = theUser.id;
         if (id) {
-          await setMonies(id, monies);
+          await setMoney(id, monies);
           addMessageToQueue(
             format(
               `Set ${theUser.username}'s balance to ${monies} :dodgycoin: .`
