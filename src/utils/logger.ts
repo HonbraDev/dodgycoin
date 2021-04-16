@@ -10,7 +10,9 @@ const logger = (logLine: string, isSystem?: boolean) => {
     )} @ ${ft(sendDate.getHours())}:${ft(sendDate.getMinutes())}:${ft(
       sendDate.getSeconds()
     )}`,
-    stringified = `\n[${timestamp}] ${logLine}\n`;
+    stringified = `${isSystem ? "\n" : ""}[${timestamp}] ${logLine}${
+      isSystem ? "\n" : ""
+    }`;
 
   console.log(stringified);
   appendFile("./logs/chat.txt", stringified + "\n");
