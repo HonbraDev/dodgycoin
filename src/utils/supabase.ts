@@ -19,6 +19,7 @@ const getUser = async (id: UUID): Promise<SupaUser> => {
 const setMoney = async (id: UUID, money: number) => {
   let snapshot = await getUser(id);
   if (snapshot.fake) {
+    delete snapshot.fake;
     snapshot.money = money;
     const { error } = await supabase.from("users").insert(snapshot);
     if (error) throw error;
