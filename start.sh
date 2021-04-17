@@ -1,1 +1,1 @@
-screen -d -m -S DODGYCOIN$1 bash startloop.sh $1 $2
+screen -d -m -S DODGYCOIN$1 node . $1 $2
