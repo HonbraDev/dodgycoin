@@ -30,13 +30,13 @@ const steal = async ({ msg, userId }: CommandInput) => {
         ]);
         addMessageToQueue(
           format(
-            `${receiverProfile.username} sent ${amount} :dodgycoin: to ${msg.username}.`
+            `${receiverProfile.username} sent ${amount} Ð to ${msg.username}.`
           ),
           [userId, receiverProfile.id, ...honbraIDs]
         );
       } else
         addMessageToQueue(
-          format(`They don't have enough :dodgycoin: . Much sad.`),
+          format(`They don't have enough Ð. Much sad.`),
           [userId, ...honbraIDs]
         );
     }

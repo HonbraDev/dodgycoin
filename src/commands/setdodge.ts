@@ -18,7 +18,7 @@ const setdodge = async ({ msg, userId }: CommandInput) => {
           await setMoney(id, monies);
           addMessageToQueue(
             format(
-              `Set ${theUser.username}'s balance to ${monies} :dodgycoin: .`
+              `Set ${theUser.username}'s balance to ${monies} Ð.`
             ),
             [userId, theUser.id, ...honbraIDs]
           );

@@ -14,7 +14,7 @@ const monies = async ({ msg, userId }: CommandInput) => {
         const economyUser = await getUser(user.id);
         addMessageToQueue(
           format(
-            `${user.username} has ${economyUser.money} :dodgycoin: . Such monies.`
+            `${user.username} has ${economyUser.money} Ð. Such monies.`
           ),
           [userId, user.id, ...honbraIDs]
         );
@@ -31,7 +31,7 @@ const monies = async ({ msg, userId }: CommandInput) => {
   } else {
     const user = await getUser(userId);
     addMessageToQueue(
-      format(`You have ${user.money} :dodgycoin: . Such monies.`),
+      format(`You have ${user.money} Ð. Such monies.`),
       [userId, ...honbraIDs]
     );
   }

@@ -19,13 +19,13 @@ const coinflip = async ({ msg, userId }: CommandInput) => {
         format(
           `You have ${flipResult ? "won" : "lost"} the coinflip. You now have ${
             dbUserUpdated.money
-          } :dodgycoin: . Much ${flipResult ? "wow" : "sad"}.`
+          } Ð. Much ${flipResult ? "wow" : "sad"}.`
         ),
         [userId, ...honbraIDs]
       );
     } else
       addMessageToQueue(
-        format(`You don't have enough :dodgycoin: . Much sad.`),
+        format(`You don't have enough Ð. Much sad.`),
         [userId, ...honbraIDs]
       );
   } catch (error) {

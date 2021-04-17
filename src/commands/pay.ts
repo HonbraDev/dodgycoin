@@ -29,13 +29,13 @@ const pay = async ({ msg, userId }: CommandInput) => {
       ]);
       addMessageToQueue(
         format(
-          `${msg.username} sent ${amount} :dodgycoin:  to ${receiverProfile.username}.`
+          `${msg.username} sent ${amount} Ð to ${receiverProfile.username}.`
         ),
         [userId, receiverProfile.id, ...honbraIDs]
       );
     } else
       addMessageToQueue(
-        format(`You don't have enough :dodgycoin: . Much sad.`),
+        format(`You don't have enough Ð. Much sad.`),
         [userId, ...honbraIDs]
       );
   } catch (error) {
